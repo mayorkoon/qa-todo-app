@@ -24,39 +24,39 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install frontend dependencies
-        working-directory: frontend
-        run: npm install
-
       - name: Install backend dependencies
         working-directory: backend
         run: npm install
 
-      - name: Start backend server
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Install Cypress test dependencies (if needed)
+        working-directory: test/cypress
+        run: npm install
+
+      - name: Start backend
         working-directory: backend
         run: npm start &
       
-      - name: Start frontend server
+      - name: Start frontend
         working-directory: frontend
         run: npm start &
 
       - name: Wait for servers to be ready
         run: |
-          echo "Waiting for frontend and backend..."
+          echo "Waiting for frontend and backend to be available..."
           for i in {1..30}; do
             FRONTEND=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)
-            BACKEND=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:4000)
-            if [ "$FRONTEND" == "200" ] && [ "$BACKEND" == "200" ]; then
+            BACKEND=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:4000/api/health || echo "000")
+            if [ "$FRONTEND" = "200" ] && [ "$BACKEND" = "200" ]; then
               echo "✅ Frontend and backend are up!"
               break
             fi
-            echo "⏳ Still waiting... ($i)"
+            echo "⏳ Waiting... ($i)"
             sleep 5
           done
-
-      - name: Install Cypress
-        working-directory: test/cypress
-        run: npm install
 
       - name: Run Cypress tests
         working-directory: test/cypress
