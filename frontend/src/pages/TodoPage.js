@@ -5,6 +5,10 @@ function TodoPage({ logout }) {
   const [text, setText] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [editText, setEditText] = useState('');
+  const [error, setError] = useState('');
+const [toast, setToast] = useState('');
+const [loading, setLoading] = useState(false);
+
 
   const fetchItems = async () => {
     const res = await fetch('http://localhost:5000/items');
@@ -13,7 +17,10 @@ function TodoPage({ logout }) {
   };
 
   const addItem = async () => {
-    if (!text) return;
+    if (!text.trim()) {
+      setError('Please enter a task.');
+      return;
+    }
     const res = await fetch('http://localhost:5000/items', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -22,11 +29,15 @@ function TodoPage({ logout }) {
     const newItem = await res.json();
     setItems([...items, newItem]);
     setText('');
+    showToast('Item added successfully!');
+
   };
 
   const deleteItem = async (id) => {
     await fetch(`http://localhost:5000/items/${id}`, { method: 'DELETE' });
     setItems(items.filter(i => i.id !== id));
+    showToast('Item removed successfully!');
+
   };
 
   const saveEdit = async (id) => {
@@ -38,46 +49,79 @@ function TodoPage({ logout }) {
     const updated = await res.json();
     setItems(items.map(i => (i.id === id ? updated : i)));
     setEditingId(null);
+    showToast('Item updated!');
   };
 
   useEffect(() => {
     fetchItems();
   }, []);
 
-  return (
-    <div className="container">
-  <h2>Todo App</h2>
-  <input
-    value={text}
-    onChange={e => setText(e.target.value)}
-    placeholder="Add new item"
-  />
-  <button className="add-btn" onClick={addItem}>Add</button>
-  <button className="logout-btn" onClick={logout}>Logout</button>
+  const showToast = (msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(''), 3000);
+  };
 
-  <ul>
-    {items.map(i => (
-      <li key={i.id}>
-        <span className="text">
-          {editingId === i.id ? (
-            <input value={editText} onChange={e => setEditText(e.target.value)} />
-          ) : (
-            i.text
-          )}
-        </span>
-        {editingId === i.id ? (
-          <button className="save-btn" onClick={() => saveEdit(i.id)}>Save</button>
-        ) : (
-          <button className="edit-btn" onClick={() => {
-            setEditingId(i.id);
-            setEditText(i.text);
-          }}>Edit</button>
-        )}
-        <button className="delete-btn" onClick={() => deleteItem(i.id)}>X</button>
-      </li>
-    ))}
-  </ul>
+  const handleLogOut = () => {
+    setLoading(true)
+    setTimeout(() => logout(), 3000);
+
+  }
+
+  return (
+<div className="todo-container">
+  <button className="logout-btn" onClick={handleLogOut} disabled={loading}>
+    {loading ? <div className="spinner"></div> : 'Logout'}
+  </button>
+
+  <div className="todo-card">
+    <h2>Todo App</h2>
+
+    <div className="input-group">
+      <input
+        value={text}
+        onChange={e => {
+          setText(e.target.value);
+          setError('');
+        }}
+        placeholder="Add new item"
+      />
+      <button className="add-btn" onClick={addItem}>Add</button>
+    </div>
+    {error && <p className="error-text">{error}</p>}
+
+    <ul className="todo-list">
+      {items.map(i => (
+        <li key={i.id}>
+          <span className="text">
+            {editingId === i.id ? (
+              <input
+                value={editText}
+                onChange={e => setEditText(e.target.value)}
+              />
+            ) : (
+              i.text
+            )}
+          </span>
+          <div className="btn-group">
+            {editingId === i.id ? (
+              <button className="save-btn" onClick={() => saveEdit(i.id)}>Save</button>
+            ) : (
+              <button className="edit-btn" onClick={() => {
+                setEditingId(i.id);
+                setEditText(i.text);
+              }}>Edit</button>
+            )}
+            <button className="delete-btn" onClick={() => deleteItem(i.id)}>X</button>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  {toast && <div className="toast">{toast}</div>}
 </div>
+
+
 
   );
 }
