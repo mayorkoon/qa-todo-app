@@ -13,7 +13,7 @@ const [loading, setLoading] = useState(false);
   const fetchItems = async () => {
     const res = await fetch('http://localhost:5000/items');
     const data = await res.json();
-    setItems(data);
+    setItems(data.data);
   };
 
   const addItem = async () => {
@@ -27,7 +27,8 @@ const [loading, setLoading] = useState(false);
       body: JSON.stringify({ text }),
     });
     const newItem = await res.json();
-    setItems([...items, newItem]);
+    
+    setItems([...items, newItem.data]);
     setText('');
     showToast('Item added successfully!');
 
@@ -90,8 +91,8 @@ const [loading, setLoading] = useState(false);
     {error && <p className="error-text">{error}</p>}
 
     <ul className="todo-list">
-      {items.map(i => (
-        <li key={i.id}>
+      {items?.map((i, index) => (
+        <li key={`${i.id + index}`}>
           <span className="text">
             {editingId === i.id ? (
               <input
