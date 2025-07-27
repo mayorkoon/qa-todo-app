@@ -29,7 +29,6 @@ const [loading, setLoading] = useState(false);
 
     } else {
     setLoading(false)
-
       setError('Invalid login');
     }
   };
