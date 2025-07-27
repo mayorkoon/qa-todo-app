@@ -1,4 +1,5 @@
 /node_modules
+test/ui/cypress/cypress.env.json
 # Logs
 logs
 *.log

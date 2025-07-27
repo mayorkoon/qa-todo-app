@@ -4,12 +4,14 @@ describe('Login Page UI Test', () => {
   const login_page = new login_pages();
 
   beforeEach(() => {
-    cy.fixture('credentials.json').as('credentials');
+    //cy.fixture('credentials.json').as('credentials');
     cy.visit('http://localhost:3000'); // or your deployed app URL
   });
 
   it('should allow typing into inputs', function () {
-    const {username,password} = this.credentials;
+    //const {username,password} = this.credentials;
+    const username = Cypress.env('username');
+    const password = Cypress.env('password');
     login_page.type_username(username)
     login_page.type_password(password)
     cy.wait(2000)
