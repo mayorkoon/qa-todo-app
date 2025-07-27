@@ -10,6 +10,10 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
 
+    env:
+      CYPRESS_username: ${{ secrets.CYPRESS_USERNAME }}
+      CYPRESS_password: ${{ secrets.CYPRESS_PASSWORD }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
