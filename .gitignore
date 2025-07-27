@@ -1,6 +1,9 @@
 /node_modules
 test/ui/cypress/cypress.env.json
 .DS_Store
+test/cypress/node_modules
+test/cypress/package-lock.json
+
 # Logs
 logs
 *.log
