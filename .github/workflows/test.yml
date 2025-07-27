@@ -1,0 +1,48 @@
+name: Cypress UI Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Start frontend app
+        working-directory: frontend
+        run: npm start &
+      
+      - name: Wait for app to be ready
+        run: |
+          echo "Waiting for frontend to be available..."
+          for i in {1..30}; do
+            if curl -s http://localhost:3000 > /dev/null; then
+              echo "Frontend is up!"
+              break
+            fi
+            echo "Waiting... ($i)"
+            sleep 5
+          done
+
+      - name: Install Cypress
+        working-directory: frontend
+        run: npm install cypress --save-dev
+
+      - name: Run Cypress tests
+        working-directory: frontend
+        run: npx cypress run
