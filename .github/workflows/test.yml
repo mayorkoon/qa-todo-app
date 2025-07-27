@@ -40,9 +40,9 @@ jobs:
           done
 
       - name: Install Cypress
-        working-directory: frontend
+        working-directory: test/ui/cypress
         run: npm install cypress --save-dev
 
       - name: Run Cypress tests
-        working-directory: frontend
+        working-directory: test/ui/cypress
         run: npx cypress run
