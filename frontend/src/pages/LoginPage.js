@@ -40,6 +40,8 @@ const [loading, setLoading] = useState(false);
       <h2>Welcome Back!</h2>
       <input
         placeholder="Username"
+        autoComplete='off'
+        autoFocus
         onChange={e =>{
            setForm({ ...form, username: e.target.value })
            setError('')
