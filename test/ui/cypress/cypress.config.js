@@ -5,6 +5,6 @@ module.exports = defineConfig({
     baseUrl: 'http://localhost:3000',
     specPattern: 'cypress/e2e/*.cy.js',
     supportFile: false,
-    testIsolation: true, // ✅ Ensures clean state per test
+    testIsolation: false, // ✅ Ensures clean state per test
   },
 });
