@@ -18,7 +18,9 @@ app.post('/login', (req, res) => {
       status: 'success',
       message: 'Login successful',
       code: 200,
-      data: { token: 'fake-jwt-token' }
+      data: { 
+          token: 'jwt-token'
+       }
     });
   }
 
