@@ -26,10 +26,11 @@
 import login_pages from '../Pages/login_pages';
 
 Cypress.Commands.add('loginWithFixture', function () {
-  cy.fixture('credentials.json').then(({ username, password }) => {
+    const username = Cypress.env('username');
+    const password = Cypress.env('password');
     const login_page = new login_pages()
     login_page.type_username(username);
     login_page.type_password(password);
     login_page.click_login();
+  
   });
-});

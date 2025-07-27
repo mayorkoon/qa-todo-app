@@ -5,6 +5,7 @@ describe('Login Page UI Test', () => {
 
   beforeEach(() => {
     //cy.fixture('credentials.json').as('credentials');
+    cy.clearLocalStorage();
     cy.visit('http://localhost:3000'); // or your deployed app URL
   });
 
