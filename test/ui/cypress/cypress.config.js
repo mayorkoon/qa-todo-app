@@ -5,6 +5,8 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    testIsolation: false // ✅ correct syntax (use colon, not equals sign)
+    testIsolation: false, // ✅ correct syntax (use colon, not equals sign)
+    supportFile: 'test/ui/cypress/support/e2e.js'
+    
   },
 });
