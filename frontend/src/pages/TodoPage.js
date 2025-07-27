@@ -48,7 +48,8 @@ const [loading, setLoading] = useState(false);
       body: JSON.stringify({ text: editText }),
     });
     const updated = await res.json();
-    setItems(items.map(i => (i.id === id ? updated : i)));
+
+    setItems(items.map(i => (i.id === id ? updated.data : i)));
     setEditingId(null);
     showToast('Item updated!');
   };
