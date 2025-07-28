@@ -64,7 +64,7 @@ jobs:
           done
 
       - name: Install Cypress test dependencies
-        working-directory: test/UI/cypress
+        working-directory: /
         run: npm ci
 
       - name: Run Cypress tests
