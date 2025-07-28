@@ -76,7 +76,7 @@ jobs:
         run: npm install -g newman
 
       - name: Run Postman collection
-        working-directory: test/api
+        working-directory: test/API
         run: newman run Todo.postman_collection.json \
             -e TODO_APP.postman_environment.json \
             --reporters cli \
