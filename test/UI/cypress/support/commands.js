@@ -29,8 +29,8 @@ Cypress.Commands.add('loginWithFixture', function () {
     const username = Cypress.env('username');
     const password = Cypress.env('password');
     const login_page = new login_pages()
-    login_page.type_username(username);
-    login_page.type_password(password);
-    login_page.click_login();
+    login_page.typeUsername(username);
+    login_page.typePassword(password);
+    login_page.clickLogin();
   
   });

@@ -1,53 +1,55 @@
+import { faker } from '@faker-js/faker';
+
 class crud_page {
-    input_item(){
+    inputItem(){
         return cy.get('input[placeholder="Add new item"]')
     }
-    add_btn(){
+    addBtn(){
         return cy.get('.add-btn')
     }
-    edit_btn(){
+    editBtn(){
         return cy.get('.edit-btn')
     }
-    delete_btn(){
+    deleteBtn(){
         return cy.get('.delete-btn')
     }
-    edit_input(){
+    editInput(){
         return cy.get('.text')
     }
-    save_btn(){
+    saveBtn(){
         return cy.get('.save-btn')
     }
     
 
     //actions
-    type_item(){
-        this.input_item().type("Doing Assessment")
+    typeItem(){
+        this.inputItem().type(faker.lorem.sentence(4))
     }
-    click_add(){
-        this.add_btn().click()
+    clickAdd(){
+        this.addBtn().click()
     }
-    success_add(){
+    successAdd(){
         return cy.contains('div','Item added successfully!')
     }
-    clear_text(){
-        this.edit_input().clear()
+    clearText(){
+        this.editInput().clear()
     }
-    edit_text(){
-        this.edit_input().type("Editing My Assessment")
+    editText(){
+        this.editInput().type(faker.lorem.sentence(4))
     }
-    click_save(){
-        this.save_btn().click()
+    clickSave(){
+        this.saveBtn().click()
     }
-    success_edit(){
+    successEdit(){
         return cy.contains('div','Item updated!')
     }
-    click_edit(){
-        this.edit_btn().click()
+    clickEdit(){
+        this.editBtn().click()
     }
-    click_delete(){
-        this.delete_btn().click()
+    clickDelete(){
+        this.deleteBtn().click()
     }
-    success_delete(){
+    successDelete(){
         return cy.contains('Item removed successfully!')
     }
 }

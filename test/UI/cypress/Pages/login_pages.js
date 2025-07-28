@@ -1,27 +1,27 @@
 class login_pages {
-    username_field(){
+    usernameField(){
        return cy.get('input[placeholder="Username"]')
     }
-    password_field(){
+    passwordField(){
         return cy.get('input[placeholder="Password"]')
     }
-    login_btn(){
+    loginBtn(){
         return cy.contains('button', 'Login')
     }
-    todo_header(){
+    todoHeader(){
         return cy.contains('h2', 'Todo App')
     }
 
     //actions
 
-    type_username(username){
-        this.username_field().type(username)
+    typeUsername(username){
+        this.usernameField().type(username)
     }
-    type_password(password){
-        this.password_field().type(password)
+    typePassword(password){
+        this.passwordField().type(password)
     }
-    click_login(){
-        this.login_btn().click()
+    clickLogin(){
+        this.loginBtn().click()
     }
 }
 
