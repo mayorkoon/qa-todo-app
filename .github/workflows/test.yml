@@ -77,7 +77,8 @@ jobs:
 
       - name: Run Postman collection
         working-directory: test/API
-        run: newman run Todo.postman_collection.json \
+        run: |
+            newman run Todo.postman_collection.json \
             -e TODO_APP.postman_environment.json \
             --reporters cli \
             --reporter-json-export newman-report.json
