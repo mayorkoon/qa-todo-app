@@ -68,7 +68,7 @@ jobs:
         run: npm ci
 
       - name: Run Cypress tests
-        working-directory: test/UI
+        working-directory: test/UI/cypress
         run: npx cypress run
 
     # Run Postman API tests
