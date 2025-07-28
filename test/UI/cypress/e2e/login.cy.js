@@ -9,6 +9,12 @@ describe('Login Page UI Test', () => {
     cy.visit('/');
   });
 
+  it('Should match the login page', () => {
+    cy.visit('/');
+    cy.wait(2000)
+    cy.matchImageSnapshot(); // Takes and compares screenshot
+  });
+
   it('should allow typing into inputs', function () {
     loginPage.typeUsername(username)
     loginPage.typePassword(password)

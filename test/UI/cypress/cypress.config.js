@@ -1,5 +1,7 @@
 // test/UI/cypress/cypress.config.js
 const { defineConfig } = require("cypress");
+const { addMatchImageSnapshotPlugin } = require('cypress-image-snapshot/plugin');
+
 
 module.exports = defineConfig({
   e2e: {
@@ -8,7 +10,9 @@ module.exports = defineConfig({
     baseUrl: 'http://localhost:3000',
     testIsolation: false,
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      //implement node event listeners here
+        addMatchImageSnapshotPlugin(on, config);
+        return config;
     },
   },
 });
