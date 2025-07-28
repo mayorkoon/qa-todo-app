@@ -1,4 +1,4 @@
-class login_pages {
+class LoginPages {
     usernameField(){
        return cy.get('input[placeholder="Username"]')
     }
@@ -25,4 +25,4 @@ class login_pages {
     }
 }
 
-export default login_pages;
+export default LoginPages;

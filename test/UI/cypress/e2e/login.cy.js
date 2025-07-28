@@ -1,7 +1,7 @@
-import login_pages from "../Pages/login_pages";
+import LoginPages from "../pages/login.pages";
 
 describe('Login Page UI Test', () => {
-  const login_page = new login_pages();
+  const loginPage = new LoginPages();
     const username = Cypress.env('username');
     const password = Cypress.env('password');
   beforeEach(() => {
@@ -10,10 +10,10 @@ describe('Login Page UI Test', () => {
   });
 
   it('should allow typing into inputs', function () {
-    login_page.typeUsername(username)
-    login_page.typePassword(password)
-    login_page.clickLogin();
-    login_page.todoHeader().should('be.visible')
+    loginPage.typeUsername(username)
+    loginPage.typePassword(password)
+    loginPage.clickLogin();
+    loginPage.todoHeader().should('be.visible')
   });
 
 });

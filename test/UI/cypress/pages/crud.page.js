@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-class crud_page {
+class CrudPage {
     inputItem(){
         return cy.get('input[placeholder="Add new item"]')
     }
@@ -54,4 +54,4 @@ class crud_page {
     }
 }
 
-export default crud_page;
+export default CrudPage;
